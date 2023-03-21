@@ -11,8 +11,15 @@
   {{ hugo.Generator }}
 
   <link rel="stylesheet" href={{ "plugins/font-awesome/css/font-awesome.min.css" | absURL }} />
+
+  {{ $sassTemplate := resources.Get "scss/custom_style.scss" }}
+  {{ $style := $sassTemplate | resources.ExecuteAsTemplate "scss/main.scss" . | resources.ToCSS | minify }} 
+  <link rel="stylesheet" href="{{ $style.Permalink }}"  />
+  
   {{ $style := resources.Get "scss/style.scss" | resources.ToCSS | minify}}
   <link href="{{ $style.Permalink }}" rel="stylesheet" />
+
+
 
   <link rel="shortcut icon" href={{ "images/favicon.ico" | absURL }} type="image/x-icon" />
   <link rel="icon" href={{ "images/favicon.svg" | absURL }} type="image/x-icon" />
